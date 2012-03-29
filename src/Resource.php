@@ -63,7 +63,7 @@ abstract class MagnifyResource
       http_build_query($params)
     );
 
-    var_dump($url);
+//    var_dump($url);
 
     $headers = array(
       'X-Magnify-Key: ' . $this->dispatcher->getApiKey(),
