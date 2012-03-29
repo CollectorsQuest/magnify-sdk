@@ -34,4 +34,25 @@ class PlaylistResource extends MagnifyResource
     return 'playlist';
   }
 
+  public function browse($page = 1, $perPage = 10, $sort = 'recent')
+  {
+    $xml = $this->fetch('browse', array(
+      'page'     => $page,
+      'per_page' => $perPage,
+      'sort'     => $sort
+    ));
+
+    return $this->parse($xml);
+  }
+
+  function user($id, $page = 1, $perPage = 10)
+  {
+    $xml = $this->fetch('user', array(
+      'page'     => $page,
+      'per_page' => $perPage,
+      'id'       => $id
+    ));
+
+    return $this->parse($xml);
+  }
 }
