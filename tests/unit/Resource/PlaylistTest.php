@@ -2,6 +2,8 @@
 
 require_once dirname(__FILE__) . '/../bootstrap.php';
 require_once dirname(__FILE__) . '/../../../src/Magnify.php';
+require_once dirname(__FILE__) . '/../../../src/Resource/Playlist.php';
+require_once dirname(__FILE__) . '/../../../src/Feed/Playlist.php';
 
 /**
  * Test class for PlaylistResource.
@@ -11,7 +13,7 @@ class PlaylistResourceTest extends PHPUnit_Framework_TestCase
 {
 
   /**
-   * @var Magnify
+   * @var PlaylistResource
    */
   protected $object;
 
@@ -21,7 +23,9 @@ class PlaylistResourceTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
-    $this->object = new Magnify(MAGNIFY_CHANNEL, MAGNIFY_API_KEY);
+    $magnify = new Magnify(MAGNIFY_CHANNEL, MAGNIFY_API_KEY);
+
+    $this->object = $magnify->playlist;
   }
 
   /**
@@ -37,7 +41,9 @@ class PlaylistResourceTest extends PHPUnit_Framework_TestCase
    */
   public function testShow()
   {
-    $this->markTestIncomplete('This test has not been implemented yet');
+    $playlist = $this->object->show('DST5G2X0BM26MRXY');
+
+    $this->assertInstanceOf('PlaylistEntry', $playlist);
   }
 
   /**
@@ -45,7 +51,9 @@ class PlaylistResourceTest extends PHPUnit_Framework_TestCase
    */
   public function testBrowse()
   {
-    $this->markTestIncomplete('This test has not been implemented yet');
+    $playlists = $this->object->browse();
+
+    $this->assertInstanceOf('PlaylistFeed', $playlists);
   }
 
   /**
@@ -53,7 +61,9 @@ class PlaylistResourceTest extends PHPUnit_Framework_TestCase
    */
   public function testUser()
   {
-    $this->markTestIncomplete('This test has not been implemented yet');
+    $playlists = $this->object->user('DST5G2X0BM26MRXY');
+
+    $this->assertInstanceOf('PlaylistFeed', $playlists);
   }
 
 }

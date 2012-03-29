@@ -44,7 +44,7 @@ class ContentResource extends MagnifyResource
       'sort'     => $sort
     ));
 
-    return $this->parse($xml); //new ContentFeed($this->dispatcher, $xml, $this);
+    return $this->parse($xml);
   }
 
   function find($vq, $page = 1, $perPage = 10, $sort = 'recent')
