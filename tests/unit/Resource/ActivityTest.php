@@ -11,7 +11,7 @@ class ActivityResourceTest extends PHPUnit_Framework_TestCase
 {
 
   /**
-   * @var Magnify
+   * @var ActivityResource
    */
   protected $object;
 
@@ -21,7 +21,9 @@ class ActivityResourceTest extends PHPUnit_Framework_TestCase
    */
   protected function setUp()
   {
-    $this->object = new Magnify(MAGNIFY_CHANNEL, MAGNIFY_API_KEY);
+    $magnify = new Magnify(MAGNIFY_CHANNEL, MAGNIFY_API_KEY);
+
+    $this->object = $magnify->activity;
   }
 
   /**
@@ -37,10 +39,7 @@ class ActivityResourceTest extends PHPUnit_Framework_TestCase
    */
   public function testContent()
   {
-    $this->markTestIncomplete('Not implemented');
-    /* @var $activity ActivityResource */
-    $activity = $this->object->activity;
-    $content = $activity->content('857HR4V69HLGG9DY');
+    $content = $this->object->content('857HR4V69HLGG9DY');
 
     $this->assertInstanceOf('ActivityFeed', $content);
   }
