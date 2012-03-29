@@ -25,6 +25,7 @@
  *
  */
 require_once dirname(__FILE__) . '/../Resource.php';
+require_once dirname(__FILE__) . '/../Feed/Activity.php';
 
 class ActivityResource extends MagnifyResource
 {

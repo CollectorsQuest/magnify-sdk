@@ -26,7 +26,7 @@
  * Id: $Id$
  */
 require_once dirname(__FILE__) . '/../Resource.php';
-require_once dirname(__FILE__) . '/../Feed.php';
+require_once dirname(__FILE__) . '/../Feed/Content.php';
 
 class ContentResource extends MagnifyResource
 {

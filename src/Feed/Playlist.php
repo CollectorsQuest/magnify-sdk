@@ -25,6 +25,7 @@
  * Id: $Id$
  */
 require_once dirname(__FILE__) . '/../Feed.php';
+require_once dirname(__FILE__) . '/../Entry/Playlist.php';
 
 class PlaylistFeed extends MagnifyFeed
 {
