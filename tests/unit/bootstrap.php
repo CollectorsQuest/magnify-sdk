@@ -7,5 +7,5 @@
  *
  */
 
-defined('MAGNIFY_CHANNEL') || define('MAGNIFY_CHANNEL', 'collectors-quest.magnify.net');
-defined('MAGNIFY_API_KEY') || define('MAGNIFY_API_KEY', 'Q4X6W30XSVC4SKGH');
+defined('MAGNIFY_CHANNEL') || define('MAGNIFY_CHANNEL', 'woof.magnify.net');
+defined('MAGNIFY_API_KEY') || define('MAGNIFY_API_KEY', '84LTHNZQ1364W14D');
