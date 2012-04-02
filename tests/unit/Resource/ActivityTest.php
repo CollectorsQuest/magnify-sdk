@@ -2,6 +2,8 @@
 
 require_once dirname(__FILE__) . '/../bootstrap.php';
 require_once dirname(__FILE__) . '/../../../src/Magnify.php';
+require_once dirname(__FILE__) . '/../../../src/Resource/Activity.php';
+require_once dirname(__FILE__) . '/../../../src/Feed/Activity.php';
 
 /**
  * Test class for ActivityResource.

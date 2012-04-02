@@ -43,6 +43,6 @@ class ActivityResource extends MagnifyResource
       'per_page' => $perPage,
     ));
 
-    return new ActivityFeed($this->dispatcher, $xml, $this->parser);
+    return $this->parse($xml);
   }
 }
