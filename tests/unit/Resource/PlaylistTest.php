@@ -41,7 +41,7 @@ class PlaylistResourceTest extends PHPUnit_Framework_TestCase
    */
   public function testShow()
   {
-    $playlist = $this->object->show('DST5G2X0BM26MRXY');
+    $playlist = $this->object->show('8P4GHX0ZB53YTR0X');
 
     $this->assertInstanceOf('PlaylistEntry', $playlist);
   }
@@ -61,7 +61,7 @@ class PlaylistResourceTest extends PHPUnit_Framework_TestCase
    */
   public function testUser()
   {
-    $playlists = $this->object->user('DST5G2X0BM26MRXY');
+    $playlists = $this->object->user('5HGFPMKX0KJXC7NW');
 
     $this->assertInstanceOf('PlaylistFeed', $playlists);
   }
