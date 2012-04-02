@@ -43,7 +43,7 @@ class ContentResourceTest extends PHPUnit_Framework_TestCase
   {
     $content = $this->object->show('TKPJWG3RRZXFGC80');
 
-    $this->assertInstanceOf('ContentFeed', $content);
+    $this->assertInstanceOf('ContentEntry', $content);
   }
 
   /**

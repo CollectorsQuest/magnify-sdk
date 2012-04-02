@@ -35,6 +35,11 @@ class PlaylistResource extends MagnifyResource
     return 'playlist';
   }
 
+  public function getAPIGroup()
+  {
+    return 'list';
+  }
+
   public function browse($page = 1, $perPage = 10, $sort = 'recent')
   {
     $xml = $this->fetch('browse', array(

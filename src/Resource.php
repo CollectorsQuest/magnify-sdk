@@ -41,6 +41,11 @@ abstract class MagnifyResource
 
   abstract public function getResourceGroup();
 
+  public function getAPIGroup()
+  {
+    return $this->getResourceGroup();
+  }
+
   public function __construct(Magnify $dispatcher, Entry $parser = null)
   {
     $this->dispatcher = $dispatcher;
@@ -58,7 +63,7 @@ abstract class MagnifyResource
     $url = sprintf('http://%s/%s/%s/%s?%s',
       $this->dispatcher->getChannel(),
       $this->baseUrl,
-      $this->getResourceGroup(),
+      $this->getAPIGroup(),
       $action,
       http_build_query($params)
     );
