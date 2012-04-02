@@ -29,7 +29,7 @@
 class Magnify
 {
 
-  const VERSION = '1.0-DEV';
+  const VERSION = '1.0-RC1';
 
   /**
    * @var string
