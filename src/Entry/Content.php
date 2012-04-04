@@ -37,7 +37,7 @@ class ContentEntry extends MagnifyEntry
   {
     $this->title      = (string)$entry->title;
     $this->content    = (string)$entry->content;
-    $this->updated_at = (string)$entry->updated;
+    $this->updated_at = strtotime($entry->updated);
 
     $magnify = $entry->children($parser::$ns['magnify']);
     $media   = $entry->children($parser::$ns['media']);
@@ -63,6 +63,21 @@ class ContentEntry extends MagnifyEntry
   public function getThumbnail()
   {
     return $this->thumbnail;
+  }
+
+  public function getUpdatedAt($format = 'Y-m-d H:i')
+  {
+    return date($format, $this->updated_at);
+  }
+
+  public function getContent()
+  {
+    return $this->content;
+  }
+
+  public function getIframeUrl()
+  {
+    return $this->iframeUrl;
   }
 
 }
