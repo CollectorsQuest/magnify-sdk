@@ -25,6 +25,7 @@
  * @since 3/28/12
  * Id: $Id$
  */
+require_once dirname(__FILE__) . '/Resource.php';
 
 class Magnify
 {
@@ -67,6 +68,51 @@ class Magnify
     return $this->apiKey;
   }
 
+  public function getResource($resourceName)
+  {
+    return MagnifyResource::factory($resourceName, $this);
+  }
+
+  /**
+   * Shortcut method
+   *
+   * @return UserResource
+   */
+  public function getUser()
+  {
+    return MagnifyResource::factory('user', $this);
+  }
+
+  /**
+   * Shortcut method
+   *
+   * @return ContentResource
+   */
+  public function getContent()
+  {
+    return MagnifyResource::factory('content', $this);
+  }
+
+  /**
+   * Shortcut method
+   *
+   * @return PlaylistResource
+   */
+  public function getPlaylist()
+  {
+    return MagnifyResource::factory('playlist', $this);
+  }
+
+  /**
+   * Shortcut method
+   *
+   * @return ActivityResource
+   */
+  public function getActivity()
+  {
+    return MagnifyResource::factory('activity', $this);
+  }
+
   /**
    * @param $name
    * @return mixed
@@ -75,8 +121,7 @@ class Magnify
   {
     if (in_array($name, array('user', 'content', 'activity', 'playlist')))
     {
-      $className = ucfirst($name) . 'Resource';
-      return new $className($this);
+      return MagnifyResource::factory($name, $this);
     }
 
     return null;

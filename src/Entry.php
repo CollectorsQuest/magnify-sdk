@@ -29,10 +29,15 @@ abstract class MagnifyEntry
 {
 
   private $_data = array();
+  /**
+   * @var MagnifyResource
+   */
+  protected $parser = null;
 
-  public function __construct($entry)
+  public function __construct($entry, $parser)
   {
-    $this->_data = array();
+    $this->_data = null;
+    $this->parser = $parser;
   }
 
   public function __set($name, $value)
@@ -45,7 +50,7 @@ abstract class MagnifyEntry
     return isset($this->_data[$name]) ? $this->_data[$name] : null;
   }
 
-  function __isset($name)
+  public function __isset($name)
   {
     return isset($this->_data[$name]);
   }

@@ -49,13 +49,13 @@ abstract class MagnifyResource
   public function __construct(Magnify $dispatcher, Entry $parser = null)
   {
     $this->dispatcher = $dispatcher;
-    $this->parser = $parser;
+    $this->parser     = $parser;
   }
 
   /**
    * @param string $action
    * @param array $params
-   * @return \SimpleXMLElement/home/zecho/shared/sf_plugins/iceMagnifyPlugin/lib/vendor/Magnify/Resource.php
+   * @return \SimpleXMLElement
    * @throws MagnifyException
    */
   protected function fetch($action, $params = array())
@@ -68,18 +68,24 @@ abstract class MagnifyResource
       http_build_query($params)
     );
 
-//    var_dump($url);
-
     $headers = array(
       'X-Magnify-Key: ' . $this->dispatcher->getApiKey(),
     );
+
     $session = curl_init($url);
+
+    if (curl_errno($session))
+    {
+      throw new MagnifyException(curl_error($session));
+    }
+
     curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($session, CURLOPT_TIMEOUT, 30);
 
     $reply = curl_exec($session);
 
-    if (false === $reply)
+    if (curl_errno($session))
     {
       throw new MagnifyException(curl_error($session), curl_errno($session));
     }
@@ -117,6 +123,8 @@ abstract class MagnifyResource
   {
     $feedClass = ucfirst($this->getResourceGroup()) . 'Feed';
 
+    require_once dirname(__FILE__) . '/Feed/' . ucfirst($this->getResourceGroup()) . '.php';
+
     return new $feedClass($this->dispatcher, $xml, $this);
   }
 
@@ -143,11 +151,20 @@ abstract class MagnifyResource
     $links = array();
     foreach ($args as $rel)
     {
-      $result = $xml->xpath("atom:link[@rel='$rel']/@href");
+      $result  = $xml->xpath("atom:link[@rel='$rel']/@href");
       $links[] = $result ? (string)$result[0] : NULL;
     }
 
     return $links;
+  }
+
+  public static final function factory($className, $dispatcher)
+  {
+    $prefix = ucfirst($className);
+    require_once dirname(__FILE__) . '/Resource/' . $prefix . '.php';
+    $className = $prefix . 'Resource';
+
+    return new $className($dispatcher);
   }
 
 }

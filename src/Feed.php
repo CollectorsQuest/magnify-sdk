@@ -121,9 +121,11 @@ class MagnifyFeed implements Iterator
     list($this->self, $this->next, $this->previous) = $parser::extractLinks($feed, 'self', 'next', 'previous');
 
     $entryClass = ucfirst($parser->getResourceGroup()) . 'Entry';
+    require_once dirname(__FILE__) . '/Entry/' . ucfirst($parser->getResourceGroup()) . '.php';
+
     foreach ($feed->entry as $entry)
     {
-      $this->_entries[] = new $entryClass($entry);
+      $this->_entries[] = new $entryClass($entry, $parser);
     }
   }
 

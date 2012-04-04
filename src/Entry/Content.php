@@ -29,4 +29,40 @@ require_once dirname(__FILE__) . '/../Entry.php';
 class ContentEntry extends MagnifyEntry
 {
 
+  /**
+   * @param \SimpleXMLElement $entry
+   * @param MagnifyResource $parser
+   */
+  public function __construct($entry, $parser)
+  {
+    $this->title      = (string)$entry->title;
+    $this->content    = (string)$entry->content;
+    $this->updated_at = (string)$entry->updated;
+
+    $magnify = $entry->children($parser::$ns['magnify']);
+    $media   = $entry->children($parser::$ns['media']);
+
+    $this->id        = (string)$magnify->id;
+    $this->thumbnail = (string)$media->thumbnail->attributes()->url;
+    $this->iframeUrl = (string)$media->content->attributes()->url;
+
+    //links
+    list($this->self, $this->user, $this->alternate) = $parser::extractLinks($entry, 'self', 'user', 'alternate');
+
+    //author
+    $this->author    = (string)$entry->author->name;
+    $this->authorId  = (string)$entry->author->children($parser::$ns['magnify'])->id;
+    $this->authorUrl = (string)$entry->author->uri;
+  }
+
+  public function getTitle()
+  {
+    return $this->title;
+  }
+
+  public function getThumbnail()
+  {
+    return $this->thumbnail;
+  }
+
 }
