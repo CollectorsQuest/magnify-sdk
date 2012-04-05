@@ -107,15 +107,15 @@ class MagnifyFeed implements Iterator
   public function __construct(Magnify $dispatcher, SimpleXMLElement $feed, MagnifyResource $parser)
   {
     // normal Atom elements
-    $this->title = (string)$feed->title;
-    $this->content = (string)$feed->content;
-    $this->updated = (string)$feed->updated;
+    $this->setTitle($feed->title);
+    $this->setContent($feed->content);
+    $this->setUpdatedAt($feed->updated);
 
     $opensearch = $feed->children($parser::$ns['opensearch']);
 
-    $this->totalResults = (string)$opensearch->totalResults;
-    $this->itemsPerPage = (string)$opensearch->itemsPerPage;
-    $this->startIndex = (string)$opensearch->startIndex;
+    $this->setTotalResults($opensearch->totalResults);
+    $this->setItemsPerPage($opensearch->itemsPerPage);
+    $this->setStartIndex($opensearch->startIndex);
 
     // link elements
     list($this->self, $this->next, $this->previous) = $parser::extractLinks($feed, 'self', 'next', 'previous');
@@ -127,6 +127,86 @@ class MagnifyFeed implements Iterator
     {
       $this->_entries[] = new $entryClass($entry, $parser);
     }
+  }
+
+  public function setAlternate($alternate)
+  {
+    $this->alternate = (string)$alternate;
+  }
+
+  public function getAlternate()
+  {
+    return $this->alternate;
+  }
+
+  public function setContent($content)
+  {
+    $this->content = (string)$content;
+  }
+
+  public function getContent()
+  {
+    return $this->content;
+  }
+
+  public function setItemsPerPage($itemsPerPage)
+  {
+    $this->itemsPerPage = (int)$itemsPerPage;
+  }
+
+  public function getItemsPerPage()
+  {
+    return $this->itemsPerPage;
+  }
+
+  public function setStartIndex($startIndex)
+  {
+    $this->startIndex = (int)$startIndex;
+  }
+
+  public function getStartIndex()
+  {
+    return $this->startIndex;
+  }
+
+  public function setTitle($title)
+  {
+    $this->title = (string)$title;
+  }
+
+  public function getTitle()
+  {
+    return $this->title;
+  }
+
+  public function setTotalResults($totalResults)
+  {
+    $this->totalResults = (int)$totalResults;
+  }
+
+  public function getTotalResults()
+  {
+    return $this->totalResults;
+  }
+
+  public function setUpdatedAt($updated)
+  {
+    $this->updated = is_int($updated) ? $updated : strtotime($updated);
+  }
+
+  public function getUpdatedAt($format = 'Y-m-d H:i')
+  {
+    return $this->updated;
+  }
+
+  public function setUser($user)
+  {
+    $this->user = (string)$user;
+  }
+
+  public function getUser()
+  {
+    return $this->user;
   }
 
 }
