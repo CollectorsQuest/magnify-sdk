@@ -55,4 +55,8 @@ abstract class MagnifyEntry
     return isset($this->_data[$name]);
   }
 
+  public function getId()
+  {
+    return $this->id;
+  }
 }
