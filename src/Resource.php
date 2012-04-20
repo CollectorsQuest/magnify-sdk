@@ -92,9 +92,14 @@ abstract class MagnifyResource
 
     curl_close($session);
 
+    libxml_use_internal_errors(true);
     try
     {
       $xml = new SimpleXMLElement($reply);
+      if (!$xml)
+      {
+        throw new MagnifyException('Could not parse response XML');
+      }
       $this->setNamespaces($xml->getDocNamespaces());
     }
     catch (Exception $e)
