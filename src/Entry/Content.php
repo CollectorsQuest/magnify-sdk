@@ -80,4 +80,8 @@ class ContentEntry extends MagnifyEntry
     return $this->iframeUrl;
   }
 
+  public function getPlayUrl()
+  {
+    return $this->alternate;
+  }
 }
