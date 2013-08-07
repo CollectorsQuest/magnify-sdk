@@ -29,6 +29,8 @@ require_once dirname(__FILE__) . '/../Entry.php';
 class ContentEntry extends MagnifyEntry
 {
 
+  private $category = array();
+
   /**
    * @param \SimpleXMLElement $entry
    * @param MagnifyResource $parser
@@ -50,9 +52,18 @@ class ContentEntry extends MagnifyEntry
     list($this->self, $this->user, $this->alternate) = $parser::extractLinks($entry, 'self', 'user', 'alternate');
 
     //author
-    $this->author    = (string)$entry->author->name;
-    $this->authorId  = (string)$entry->author->children($parser::$ns['magnify'])->id;
-    $this->authorUrl = (string)$entry->author->uri;
+    $this->author    = (string) $entry->author->name;
+    $this->authorId  = (string) $entry->author->children($parser::$ns['magnify'])->id;
+    $this->authorUrl = (string) $entry->author->uri;
+
+    if (isset($entry->category))
+    {
+      foreach ($entry->category as $cat)
+      {
+        $this->category[] = array('label' => (string) $cat->attributes()->label,
+          'term' => (string) $cat->attributes()->term);
+      }
+    }
   }
 
   public function getTitle()
@@ -83,5 +94,10 @@ class ContentEntry extends MagnifyEntry
   public function getPlayUrl()
   {
     return $this->alternate;
+  }
+
+  public function getCategory()
+  {
+    return $this->category;
   }
 }
